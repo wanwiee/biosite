@@ -1,0 +1,7 @@
+{
+  "buildCommand": "echo 'Static build - no compilation needed'",
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
