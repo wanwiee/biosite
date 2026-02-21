@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kon Sonny VISA Aguillo - Counselor Biosite</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .dropdown-menu { transition: all 0.2s ease-in-out; }
+        .group:hover .dropdown-menu { opacity: 1; visibility: visible; }
+    </style>
+</head>
+<body class="bg-white">
+    <div id="app">
+        <nav class="bg-blue-700 shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex-shrink-0 flex items-center">
+                        <router-link to="/" class="text-white text-xl font-bold">Counselor Biosite</router-link>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-4">
+                        <router-link to="/" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md">Home</router-link>
+                        <div class="relative group">
+                            <button class="text-white hover:bg-blue-600 px-3 py-2 rounded-md flex items-center">
+                                About <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            </button>
+                            <div class="absolute left-0 mt-0 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 dropdown-menu">
+                                <router-link to="/counselor" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Counselor</router-link>
+                                <router-link to="/family-background" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Family Background</router-link>
+                            </div>
+                        </div>
+                        <router-link to="/legacy" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md">Legacy</router-link>
+                        <div class="relative group">
+                            <button class="text-white hover:bg-blue-600 px-3 py-2 rounded-md flex items-center">
+                                News <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            </button>
+                            <div class="absolute left-0 mt-0 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 dropdown-menu">
+                                <router-link to="/news-releases" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">News Releases</router-link>
+                                <router-link to="/speeches" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Speeches</router-link>
+                                <div class="relative group-sub">
+                                    <button class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-blue-50 flex justify-between items-center">
+                                        Videos <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                                    </button>
+                                    <div class="absolute left-48 top-0 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-sub-hover:opacity-100 group-sub-hover:visible transition-all z-50 dropdown-menu">
+                                        <router-link to="/live-stream" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Live Stream</router-link>
+                                        <router-link to="/vlogs" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Vlogs</router-link>
+                                        <router-link to="/weekly-recap" class="block px-4 py-2 text-gray-800 hover:bg-blue-50">Weekly Recap</router-link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <router-link to="/contact" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md">Contact</router-link>
+                        <router-link to="/documents" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md">Documents</router-link>
+                        <router-link to="/admin" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md bg-blue-800">Admin</router-link>
+                    </div>
+                    <div class="flex items-center md:hidden">
+                        <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-white hover:bg-blue-600 p-2 rounded-md">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div v-if="mobileMenuOpen" class="md:hidden bg-blue-700">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <router-link to="/" @click="mobileMenuOpen = false" class="text-white block px-3 py-2 rounded-md hover:bg-blue-600">Home</router-link>
+                    <div class="relative">
+                        <button @click="aboutOpen = !aboutOpen" class="text-white w-full text-left px-3 py-2 rounded-md hover:bg-blue-600 flex justify-between items-center">About <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></button>
+                        <div v-if="aboutOpen" class="pl-4 space-y-1">
+                            <router-link to="/counselor" @click="mobileMenuOpen = false" class="text-white block px-3 py-2 rounded-md hover:bg-blue-600">Counselor</router-link>
+                            <router-link to="/family-background" @click="mobileMenuOpen = false" class="text-white block px-3 py-2 rounded-md hover:bg-blue-600">Family Background</router-link>
+                        </div>
+                    </div>
+                    <router-link to="/legacy" @click="mobileMenuOpen = false" class="text-white block px-3 py-2 rounded-md hover:bg-blue-600">Legacy</router-link>
+                    <div class="relative">
+                        <button @click="newsOpen = !newsOpen" class="text-white w-full text-left px-3 py-2 rounded-md hover:bg-blue-600 flex justify-between items-center">News <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></button>
+                        <div v-if="newsOpen" class="pl-4 space-y-1">
+                            <router-link to="/news-releases" @click="mobileMenuOpen = false" class="text-white block px-3 py-2 rounded-md hover:bg-blue-600">News Releases</router-link>
+                            <router-link to="/speeches" @click="mobileMenuOpen = false" class="text-white block px-3 py-2 rounded-md hover:bg-blue-600">Speeches</router-link>
+                            <div class="relative">
+                                <button @click="videosOpen = !videosOpen" class="text-white w-full text-left px-3 py-2 rounded-md hover:bg-blue-600 flex justify-between items-center">Videos <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></button>
+                                <div v-if="videosOpen" class="pl-4 space-y-1">
+                                    <router-link to="/live-stream" @click="mobileMenuOpen = false" class="text-white block px-3 py-2 rounded-md hover:bg-blue-600">Live Stream</router-link>
+                                    <router-link to="/vlogs" @click="mobileMenuOpen = false" class="text-white block px-3 py-2 rounded-md hover:bg-blue-600">Vlogs</router-link>
+                                    <router-link to="/weekly-recap" @click="mobileMenuOpen = false" class="text-white block px-3 py-2 rounded-md hover:bg-blue-600">Weekly Recap</router-link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <router-link to="/contact" @click="mobileMenuOpen = false" class="text-white block px-3 py-2 rounded-md hover:bg-blue-600">Contact</router-link>
+                    <router-link to="/documents" @click="mobileMenuOpen = false" class="text-white block px-3 py-2 rounded-md hover:bg-blue-600">Documents</router-link>
+                    <router-link to="/admin" @click="mobileMenuOpen = false" class="text-white block px-3 py-2 rounded-md hover:bg-blue-600 bg-blue-800">Admin</router-link>
+                </div>
+            </div>
+        </nav>
+        <main><router-view /></main>
+        <footer class="bg-blue-800 text-white py-8 mt-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center"><p class="text-sm">&copy; 2024 Kon Sonny VISA Aguillo - Counselor Biosite. All rights reserved.</p></div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue
+        const { createRouter, createWebHashHistory } = VueRouter
+
+        const Home = { template: `<div>
+            <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="text-5xl font-bold mb-4">Welcome to Counselor Biosite</h1>
+                    <p class="text-xl mb-8">Honoring the legacy of Kon Sonny VISA Aguillo</p>
+                    <router-link to="/counselor" class="bg-white text-blue-700 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">Learn More</router-link>
+                </div>
+            </div>
+            <div class="py-16 bg-gray-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">About Our Counselor</h2>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div><p class="text-gray-600 mb-4">Kon Sonny VISA Aguillo is a dedicated counselor committed to helping individuals and families navigate their challenges and achieve personal growth.</p><router-link to="/counselor" class="text-blue-600 hover:text-blue-800 font-semibold">Read more about the counselor →</router-link></div>
+                        <div class="bg-blue-100 h-64 rounded-lg flex items-center justify-center"><span class="text-blue-400 text-6xl">👤</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Quick Links</h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <router-link to="/legacy" class="block p-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"><h3 class="text-xl font-bold mb-2">Legacy</h3><p>Learn about the lasting impact and contributions.</p></router-link>
+                        <router-link to="/news-releases" class="block p-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"><h3 class="text-xl font-bold mb-2">News & Updates</h3><p>Stay informed with the latest news and speeches.</p></router-link>
+                        <router-link to="/contact" class="block p-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"><h3 class="text-xl font-bold mb-2">Contact Us</h3><p>Get in touch for counseling services.</p></router-link>
+                    </div>
+                </div>
+            </div>
+        </div>` }
+
+        const Counselor = { template: `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-8">Counselor Profile</h1>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="bg-blue-100 w-64 h-64 rounded-lg flex items-center justify-center flex-shrink-0"><span class="text-blue-400 text-8xl">👤</span></div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Kon Sonny VISA Aguillo</h2>
+                        <p class="text-gray-600 mb-4">Dedicated counselor with years of experience in helping individuals and families navigate their challenges and achieve personal growth.</p>
+                        <p class="text-gray-600 mb-4">Specializes in family counseling, personal development, and emotional wellness.</p>
+                        <div class="mt-4"><h3 class="text-lg font-semibold text-gray-800 mb-2">Contact Information</h3><p class="text-gray-600">Email: counsel@example.com</p><p class="text-gray-600">Phone: (123) 456-7890</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>` }
+
+        const FamilyBackground = { template: `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-8">Family Background</h1>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <p class="text-gray-600 mb-4">The Aguillo family has a rich history of service and dedication to the community. Kon Sonny VISA Aguillo continues this tradition through counseling and guidance.</p>
+                <p class="text-gray-600">Family values of compassion, integrity, and service have been passed down through generations, shaping the approach to counseling and community involvement.</p>
+            </div>
+        </div>` }
+
+        const Legacy = { template: `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-8">Legacy</h1>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <p class="text-gray-600 mb-4">The legacy of Kon Sonny VISA Aguillo encompasses decades of dedicated service to the community, helping countless individuals and families find their path to wellness and happiness.</p>
+                <p class="text-gray-600">Through counseling programs, community initiatives, and educational workshops, the impact continues to be felt across generations.</p>
+            </div>
+        </div>` }
+
+        const NewsReleases = { template: `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-8">News Releases</h1>
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg shadow-lg p-6"><h2 class="text-xl font-bold text-gray-800 mb-2">Community Counseling Initiative Launched</h2><p class="text-gray-600 mb-2">A new counseling program aims to reach more families in need.</p><p class="text-sm text-gray-500">January 2024</p></div>
+                <div class="bg-white rounded-lg shadow-lg p-6"><h2 class="text-xl font-bold text-gray-800 mb-2">Annual Wellness Workshop</h2><p class="text-gray-600 mb-2">Join us for our annual wellness and personal development workshop.</p><p class="text-sm text-gray-500">December 2023</p></div>
+            </div>
+        </div>` }
+
+        const Speeches = { template: `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-8">Speeches</h1>
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg shadow-lg p-6"><h2 class="text-xl font-bold text-gray-800 mb-2">Opening Remarks - Community Health Forum</h2><p class="text-gray-600 mb-2">Speech delivered at the annual community health forum.</p><p class="text-sm text-gray-500">January 2024</p></div>
+                <div class="bg-white rounded-lg shadow-lg p-6"><h2 class="text-xl font-bold text-gray-800 mb-2">The Importance of Mental Health Awareness</h2><p class="text-gray-600 mb-2">Keynote speech at the regional mental health conference.</p><p class="text-sm text-gray-500">November 2023</p></div>
+            </div>
+        </div>` }
+
+        const LiveStream = { template: `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-8">Live Stream</h1>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="bg-gray-200 h-96 rounded-lg flex items-center justify-center mb-4"><p class="text-gray-500 text-xl">Live Stream Content</p></div>
+                <p class="text-gray-600">Join us live for counseling sessions, Q&A, and community discussions.</p>
+            </div>
+        </div>` }
+
+        const Vlogs = { template: `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-8">Vlogs</h1>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden"><div class="bg-gray-200 h-48 flex items-center justify-center"><span class="text-4xl">🎬</span></div><div class="p-4"><h2 class="text-lg font-bold text-gray-800 mb-2">Understanding Anxiety</h2><p class="text-gray-600 text-sm">Tips and strategies for managing anxiety in daily life.</p></div></div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden"><div class="bg-gray-200 h-48 flex items-center justify-center"><span class="text-4xl">🎬</span></div><div class="p-4"><h2 class="text-lg font-bold text-gray-800 mb-2">Family Communication</h2><p class="text-gray-600 text-sm">Building better communication within the family.</p></div></div>
+            </div>
+        </div>` }
+
+        const WeeklyRecap = { template: `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-8">Weekly Recap</h1>
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg shadow-lg p-6"><h2 class="text-xl font-bold text-gray-800 mb-2">Week of January 15-21, 2024</h2><p class="text-gray-600 mb-2">Summary of counseling sessions, community interactions, and upcoming events.</p></div>
+                <div class="bg-white rounded-lg shadow-lg p-6"><h2 class="text-xl font-bold text-gray-800 mb-2">Week of January 8-14, 2024</h2><p class="text-gray-600 mb-2">Highlights from the wellness workshop and feedback from participants.</p></div>
+            </div>
+        </div>` }
+
+        const Contact = {
+            template: `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <h1 class="text-4xl font-bold text-gray-800 mb-8">Contact Us</h1>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <form @submit.prevent="submitForm" class="space-y-4">
+                        <div><label class="block text-gray-700 mb-2">Name</label><input v-model="form.name" type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></div>
+                        <div><label class="block text-gray-700 mb-2">Email</label><input v-model="form.email" type="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></div>
+                        <div><label class="block text-gray-700 mb-2">Message</label><textarea v-model="form.message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea></div>
+                        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Send Message</button>
+                    </form>
+                </div>
+            </div>`,
+            data() { return { form: { name: '', email: '', message: '' } } },
+            methods: { submitForm() { alert('Message sent!'); this.form = { name: '', email: '', message: '' } } }
+        }
+
+        const DocumentManagement = {
+            template: `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <h1 class="text-4xl font-bold text-gray-800 mb-8">Document Management System</h1>
+                <div v-if="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">{{ errorMessage }}</div>
+                <div v-if="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">{{ successMessage }}</div>
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Submit New Document</h2>
+                    <form @submit.prevent="addDocument" class="space-y-4">
+                        <div><label class="block text-gray-700 mb-2">Document Title</label><input v-model="newDoc.title" type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></div>
+                        <div><label class="block text-gray-700 mb-2">Description</label><textarea v-model="newDoc.description" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea></div>
+                        <div><label class="block text-gray-700 mb-2">Upload File (PDF, JPEG, JPG, PNG)</label><input type="file" @change="handleFileUpload" accept=".pdf,.jpeg,.jpg,.png" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></div>
+                        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Submit Document</button>
+                    </form>
+                </div>
+                <div class="flex gap-2 mb-4">
+                    <button @click="filter = 'all'" :class="{'bg-blue-600 text-white': filter === 'all', 'bg-gray-200 text-gray-700': filter !== 'all'}" class="px-4 py-2 rounded-lg">All ({{ documents.length }})</button>
+                    <button @click="filter = 'Pending'" :class="{'bg-blue-600 text-white': filter === 'Pending', 'bg-gray-200 text-gray-700': filter !== 'Pending'}" class="px-4 py-2 rounded-lg">Pending ({{ pendingCount }})</button>
+                    <button @click="filter = 'Approved'" :class="{'bg-blue-600 text-white': filter === 'Approved', 'bg-gray-200 text-gray-700': filter !== 'Approved'}" class="px-4 py-2 rounded-lg">Approved ({{ approvedCount }})</button>
+                    <button @click="filter = 'Rejected'" :class="{'bg-blue-600 text-white': filter === 'Rejected', 'bg-gray-200 text-gray-700': filter !== 'Rejected'}" class="px-4 py-2 rounded-lg">Rejected ({{ rejectedCount }})</button>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Your Documents</h2>
+                    <div v-if="filteredDocuments.length === 0" class="text-gray-500 text-center py-8">No documents found.</div>
+                    <div v-else class="space-y-4">
+                        <div v-for="doc in filteredDocuments" :key="doc.id" class="border rounded-lg p-4 flex justify-between items-center" :class="{'border-l-4 border-l-yellow-500': doc.status === 'Pending', 'border-l-4 border-l-green-500': doc.status === 'Approved', 'border-l-4 border-l-red-500': doc.status === 'Rejected'}">
+                            <div class="flex-1">
+                                <h3 class="font-bold text-gray-800">{{ doc.title }}</h3>
+                                <p class="text-sm text-gray-600">{{ doc.description }}</p>
+                                <p class="text-xs text-gray-500 mt-1">Status: <span :class="{'text-yellow-600': doc.status === 'Pending', 'text-green-600': doc.status === 'Approved', 'text-red-600': doc.status === 'Rejected'}">{{ doc.status }}</span></p>
+                                <p v-if="doc.fileName" class="text-xs text-gray-500">File: {{ doc.fileName }}</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button v-if="doc.fileData" @click="viewFile(doc)" class="text-blue-600 hover:text-blue-800 text-sm mr-2">View</button>
+                                <button @click="editDocument(doc)" class="text-green-600 hover:text-green-800 text-sm mr-2">Edit</button>
+                                <button @click="deleteDocument(doc.id)" class="text-red-600 hover:text-red-800 text-sm">Delete</button>
+                                <span class="text-sm text-gray-500 ml-2">{{ doc.date }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="editingDoc" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" @click.self="editingDoc = null">
+                    <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+                        <h3 class="text-xl font-bold mb-4">Edit Document</h3>
+                        <form @submit.prevent="saveEdit">
+                            <div class="space-y-4">
+                                <div><label class="block text-gray-700 mb-2">Document Title</label><input v-model="editingDoc.title" type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></div>
+                                <div><label class="block text-gray-700 mb-2">Description</label><textarea v-model="editingDoc.description" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea></div>
+                                <div class="flex gap-2">
+                                    <button type="submit" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Save Changes</button>
+                                    <button type="button" @click="editingDoc = null" class="flex-1 bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div v-if="viewingFile" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" @click.self="viewingFile = null">
+                    <div class="bg-white rounded-lg p-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-auto">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold">{{ viewingFile.title }}</h3>
+                            <button @click="viewingFile = null" class="text-gray-500 hover:text-gray-700"><svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+                        </div>
+                        <div v-if="viewingFile.fileType === 'pdf'" class="embed-container"><iframe :src="viewingFile.fileData" class="w-full h-[70vh] border-0"></iframe></div>
+                        <div v-else class="text-center"><img :src="viewingFile.fileData" :alt="viewingFile.title" class="max-w-full max-h-[70vh] mx-auto"></div>
+                    </div>
+                </div>
+            </div>`,
+            data() {
+                return {
+                    filter: 'all', errorMessage: '', successMessage: '',
+                    newDoc: { title: '', description: '', file: null, fileName: '', fileData: '', fileType: '' },
+                    viewingFile: null, editingDoc: null,
+                    documents: [
+                        { id: 1, title: 'Counseling Request Form', description: 'Initial counseling session request', status: 'Pending', date: '2024-01-15', fileName: 'sample.pdf', fileData: '', fileType: 'pdf' },
+                        { id: 2, title: 'Family Background Info', description: 'Family history documentation', status: 'Approved', date: '2024-01-10', fileName: 'family.jpg', fileData: '', fileType: 'image' },
+                        { id: 3, title: 'Medical Certificate', description: 'Required medical documents', status: 'Rejected', date: '2024-01-05', fileName: 'medical.pdf', fileData: '', fileType: 'pdf' },
+                        { id: 4, title: 'Employment Verification', description: 'Proof of employment', status: 'Pending', date: '2024-01-20', fileName: '', fileData: '', fileType: '' },
+                        { id: 5, title: 'ID Picture', description: 'Recent 2x2 photo', status: 'Approved', date: '2024-01-08', fileName: 'id_photo.jpg', fileData: '', fileType: 'image' }
+                    ]
+                }
+            },
+            computed: {
+                filteredDocuments() { return this.filter === 'all' ? this.documents : this.documents.filter(doc => doc.status === this.filter) },
+                pendingCount() { return this.documents.filter(d => d.status === 'Pending').length },
+                approvedCount() { return this.documents.filter(d => d.status === 'Approved').length },
+                rejectedCount() { return this.documents.filter(d => d.status === 'Rejected').length }
+            },
+            mounted() { const savedDocs = localStorage.getItem('documents'); if (savedDocs) this.documents = JSON.parse(savedDocs) },
+            methods: {
+                handleFileUpload(event) {
+                    const file = event.target.files[0]
+                    if (file) {
+                        const validTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png']
+                        if (!validTypes.includes(file.type)) { alert('Please upload a PDF, JPEG, JPG, or PNG file.'); event.target.value = ''; return }
+                        this.newDoc.file = file; this.newDoc.fileName = file.name; this.newDoc.fileType = file.type === 'application/pdf' ? 'pdf' : 'image'
+                        const reader = new FileReader()
+                        reader.onload = (e) => { this.newDoc.fileData = e.target.result }
+                        reader.readAsDataURL(file)
+                    }
+                },
+                addDocument() {
+                    const doc = { id: Date.now(), title: this.newDoc.title, description: this.newDoc.description, status: 'Pending', date: new Date().toISOString().split('T')[0], fileName: this.newDoc.fileName, fileData: this.newDoc.fileData, fileType: this.newDoc.fileType }
+                    this.documents.unshift(doc)
+                    localStorage.setItem('documents', JSON.stringify(this.documents))
+                    this.newDoc = { title: '', description: '', file: null, fileName: '', fileData: '', fileType: '' }
+                    alert('Document submitted successfully!')
+                },
+                viewFile(doc) { if (doc.fileData) this.viewingFile = doc; else alert('No file attached.') },
+                editDocument(doc) { this.editingDoc = { ...doc } },
+                saveEdit() {
+                    const index = this.documents.findIndex(d => d.id === this.editingDoc.id)
+                    if (index !== -1) { this.documents[index] = { ...this.editingDoc }; localStorage.setItem('documents', JSON.stringify(this.documents)); this.successMessage = 'Document updated successfully!'; setTimeout(() => this.successMessage = '', 3000) }
+                    this.editingDoc = null
+                },
+                deleteDocument(id) {
+                    if (confirm('Are you sure you want to delete this document?')) { this.documents = this.documents.filter(d => d.id !== id); localStorage.setItem('documents', JSON.stringify(this.documents)); this.successMessage = 'Document deleted successfully!'; setTimeout(() => this.successMessage = '', 3000) }
+                }
+            }
+        }
+
+        const AdminDashboard = {
+            template: `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <h1 class="text-4xl font-bold text-gray-800 mb-8">Admin Dashboard</h1>
+                <div class="grid md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-blue-600 text-white rounded-lg p-6"><h3 class="text-lg font-bold">Total Documents</h3><p class="text-3xl">{{ documents.length }}</p></div>
+                    <div class="bg-yellow-500 text-white rounded-lg p-6"><h3 class="text-lg font-bold">Pending</h3><p class="text-3xl">{{ pendingCount }}</p></div>
+                    <div class="bg-green-600 text-white rounded-lg p-6"><h3 class="text-lg font-bold">Approved</h3><p class="text-3xl">{{ approvedCount }}</p></div>
+                    <div class="bg-red-600 text-white rounded-lg p-6"><h3 class="text-lg font-bold">Rejected</h3><p class="text-3xl">{{ rejectedCount }}</p></div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Add Possible Needs</h2>
+                    <form @submit.prevent="addNeed" class="space-y-4">
+                        <div class="flex gap-4">
+                            <input v-model="newNeed.name" type="text" placeholder="Enter requirement name..." class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Add Need</button>
+                        </div>
+                        <div><input v-model="newNeed.purpose" type="text" placeholder="Enter purpose/description..." class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></div>
+                    </form>
+                    <div class="mt-4 space-y-2">
+                        <div v-for="(need, index) in needs" :key="index" class="bg-blue-50 border border-blue-200 rounded-lg p-3 flex justify-between items-center">
+                            <div><span class="font-semibold text-blue-800">{{ need.name }}</span><span v-if="need.purpose" class="text-gray-600 text-sm ml-2">- {{ need.purpose }}</span></div>
+                            <button @click="removeNeed(index)" class="text-red-500 hover:text-red-700 text-sm">Remove</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Document Reviews</h2>
+                    <table class="w-full">
+                        <thead><tr class="border-b"><th class="text-left py-2">Title</th><th class="text-left py-2">Description</th><th class="text-left py-2">File</th><th class="text-left py-2">Date</th><th class="text-left py-2">Status</th><th class="text-left py-2">Actions</th></tr></thead>
+                        <tbody>
+                            <tr v-for="doc in documents" :key="doc.id" class="border-b">
+                                <td class="py-3">{{ doc.title }}</td>
+                                <td class="py-3">{{ doc.description }}</td>
+                                <td class="py-3"><button v-if="doc.fileData" @click="viewFile(doc)" class="text-blue-600 hover:text-blue-800 text-sm">View {{ doc.fileName }}</button><span v-else class="text-gray-400 text-sm">No file</span></td>
+                                <td class="py-3">{{ doc.date }}</td>
+                                <td class="py-3"><span :class="{'text-yellow-600': doc.status === 'Pending', 'text-green-600': doc.status === 'Approved', 'text-red-600': doc.status === 'Rejected'}">{{ doc.status }}</span></td>
+                                <td class="py-3"><button v-if="doc.status === 'Pending'" @click="approveDoc(doc.id)" class="text-green-600 hover:text-green-800 mr-2">Approve</button><button v-if="doc.status === 'Pending'" @click="rejectDoc(doc.id)" class="text-red-600 hover:text-red-800">Reject</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div v-if="viewingFile" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" @click.self="viewingFile = null">
+                    <div class="bg-white rounded-lg p-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-auto">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold">{{ viewingFile.title }}</h3>
+                            <button @click="viewingFile = null" class="text-gray-500 hover:text-gray-700"><svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+                        </div>
+                        <div v-if="viewingFile.fileType === 'pdf'" class="embed-container"><iframe :src="viewingFile.fileData" class="w-full h-[70vh] border-0"></iframe></div>
+                        <div v-else class="text-center"><img :src="viewingFile.fileData" :alt="viewingFile.title" class="max-w-full max-h-[70vh] mx-auto"></div>
+                    </div>
+                </div>
+            </div>`,
+            data() {
+                return {
+                    newNeed: { name: '', purpose: '' }, viewingFile: null,
+                    needs: [
+                        { name: 'Counseling Session', purpose: 'Individual therapy sessions' },
+                        { name: 'Family Assessment', purpose: 'Family dynamics evaluation' },
+                        { name: 'Personal Development Plan', purpose: 'Goal setting and growth' },
+                        { name: 'Crisis Intervention', purpose: 'Emergency support services' }
+                    ],
+                    documents: [
+                        { id: 1, title: 'Counseling Request Form', description: 'Initial counseling session request', status: 'Pending', date: '2024-01-15', fileName: 'sample.pdf', fileData: '', fileType: 'pdf' },
+                        { id: 2, title: 'Family Background Info', description: 'Family history documentation', status: 'Approved', date: '2024-01-10', fileName: 'family.jpg', fileData: '', fileType: 'image' },
+                        { id: 3, title: 'Workplace Assessment', description: 'Employee wellness evaluation', status: 'Pending', date: '2024-01-12' }
+                    ]
+                }
+            },
+            mounted() { const savedDocs = localStorage.getItem('documents'); if (savedDocs) this.documents = JSON.parse(savedDocs) },
+            computed: {
+                pendingCount() { return this.documents.filter(d => d.status === 'Pending').length },
+                approvedCount() { return this.documents.filter(d => d.status === 'Approved').length },
+                rejectedCount() { return this.documents.filter(d => d.status === 'Rejected').length }
+            },
+            methods: {
+                approveDoc(id) { const doc = this.documents.find(d => d.id === id); if (doc) doc.status = 'Approved'; localStorage.setItem('documents', JSON.stringify(this.documents)) },
+                rejectDoc(id) { const doc = this.documents.find(d => d.id === id); if (doc) doc.status = 'Rejected'; localStorage.setItem('documents', JSON.stringify(this.documents)) },
+                addNeed() { if (this.newNeed.name && !this.needs.find(n => n.name === this.newNeed.name)) { this.needs.push({ name: this.newNeed.name, purpose: this.newNeed.purpose }); this.newNeed = { name: '', purpose: '' } } },
+                removeNeed(index) { this.needs.splice(index, 1) },
+                viewFile(doc) { if (doc.fileData) this.viewingFile = doc; else alert('No file attached.') }
+            }
+        }
+
+        const routes = [
+            { path: '/', component: Home },
+            { path: '/counselor', component: Counselor },
+            { path: '/family-background', component: FamilyBackground },
+            { path: '/legacy', component: Legacy },
+            { path: '/news-releases', component: NewsReleases },
+            { path: '/speeches', component: Speeches },
+            { path: '/live-stream', component: LiveStream },
+            { path: '/vlogs', component: Vlogs },
+            { path: '/weekly-recap', component: WeeklyRecap },
+            { path: '/contact', component: Contact },
+            { path: '/documents', component: DocumentManagement },
+            { path: '/admin', component: AdminDashboard }
+        ]
+
+        const router = createRouter({ history: createWebHashHistory(), routes })
+        const app = createApp({ data() { return { mobileMenuOpen: false, aboutOpen: false, newsOpen: false, videosOpen: false } } })
+        app.use(router)
+        app.mount('#app')
+    </script>
+</body>
+</html>
